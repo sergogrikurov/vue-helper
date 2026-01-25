@@ -4,6 +4,10 @@ import Slider from "@/views/Slider.vue";
 
 const routes = [
   {
+    path: "/",
+    redirect: "/en", // или "/ru"
+  },
+  {
     path: "/:lang(en|ru)",
     component: RouterView,
     children: [

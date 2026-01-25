@@ -6,13 +6,13 @@ import { useI18n } from "vue-i18n";
 const { locale, t } = useI18n();
 </script>
 <template>
-  <div class="footer">
+  <footer class="footer">
     <div class="footer__top">
       <Logo />
       <a href="mailto:sergogrikurov@gmail.com">sergogrikurov@gmail.com</a>
     </div>
     <div class="footer__copy">© {{ t("footer.copy") }}</div>
-  </div>
+  </footer>
 </template>
 
 <style lang="scss" scoped>
