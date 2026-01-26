@@ -3,9 +3,17 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute, RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 
+import { useTheme } from "@/composables/useTheme.js";
+
 import Logo from "./Logo.vue";
 import Chek from "@/assets/images/chek.svg";
 import GitHub from "@/assets/images/github.svg";
+
+import Dark from "@/assets/images/dark-mode.svg";
+import Light from "@/assets/images/light-mode.svg";
+
+// them
+const { theme, toggleTheme } = useTheme();
 
 // i18n
 const { locale, t } = useI18n();
@@ -55,6 +63,15 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener("click", handleClickOutside);
 });
+
+// Темы
+onMounted(() => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    theme.value = savedTheme;
+    document.body.className = savedTheme; // сразу ставим класс
+  }
+});
 </script>
 
 <template>
@@ -79,6 +96,22 @@ onBeforeUnmount(() => {
       >
         <span class="red">#</span>{{ t("nav.slider") }}
       </RouterLink>
+
+      <RouterLink
+        class="header__nav_link"
+        :to="{ name: 'inputs', params: { lang: locale } }"
+      >
+        <span class="red">#</span>{{ t("nav.inputs") }}
+      </RouterLink>
+
+      <button class="header__nav_theme" @click="toggleTheme">
+        <img
+          v-if="theme === 'light'"
+          :src="Light"
+          alt="Переключить на тёмную тему"
+        />
+        <img v-else :src="Dark" alt="Переключить на светлую тему" />
+      </button>
 
       <!-- LANG SWITCHER -->
       <div class="header__lang" ref="langRef" @click="toggleLang">
@@ -119,6 +152,23 @@ onBeforeUnmount(() => {
           <span class="red">#</span>{{ t("nav.slider") }}
         </RouterLink>
 
+        <RouterLink
+          class="header__burger-nav_link"
+          :to="{ name: 'inputs', params: { lang: locale } }"
+          @click="menuOpen = false"
+        >
+          <span class="red">#</span>{{ t("nav.inputs") }}
+        </RouterLink>
+
+        <button class="header__nav_theme" @click="toggleTheme">
+          <img
+            v-if="theme === 'light'"
+            :src="Light"
+            alt="Переключить на тёмную тему"
+          />
+          <img v-else :src="Dark" alt="Переключить на светлую тему" />
+        </button>
+
         <!-- LANG SWITCHER -->
         <div class="header__lang" ref="langRef" @click="toggleLang">
           <p>{{ locale.toUpperCase() }}</p>
@@ -148,7 +198,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .router-link-exact-active {
-  color: #fff;
+  color: var(--link-color);
 }
 .header {
   width: 100%;
@@ -174,7 +224,16 @@ onBeforeUnmount(() => {
         margin-right: rem(1);
       }
       &:hover {
-        color: #fff;
+        color: var(--hover-color);
+      }
+    }
+    &_theme {
+      display: inline-flex;
+      padding: rem(4);
+      & img {
+        width: rem(24);
+        height: rem(24);
+        display: block;
       }
     }
   }
@@ -187,7 +246,7 @@ onBeforeUnmount(() => {
     font-weight: 600;
 
     & p {
-      color: #fff;
+      color: var(--title-color);
     }
 
     & img {
@@ -202,14 +261,14 @@ onBeforeUnmount(() => {
     position: absolute;
     top: rem(20);
     left: 0;
-    background: #111;
+    background: var(--burger-bg);
     padding: rem(8);
     & > *:not(:last-child) {
       margin-bottom: rem(8);
     }
     &_link {
       &:hover {
-        color: #fff;
+        color: var(--hover-color);
       }
     }
   }
@@ -253,7 +312,7 @@ onBeforeUnmount(() => {
     @media (max-width: $mobile) {
       position: fixed;
       inset: 0;
-      background-color: #111;
+      background-color: var(--burger-bg);
       z-index: 100;
       display: flex;
       flex-direction: column;

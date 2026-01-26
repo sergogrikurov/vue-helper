@@ -6,7 +6,7 @@
 </template>
 <style lang="scss" scoped>
 .logo {
-  color: #fff;
+  color: var(--title-color);
   display: inline-block;
   font-size: rem(20);
   position: relative;

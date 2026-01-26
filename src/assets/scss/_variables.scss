@@ -2,5 +2,51 @@ $tablet: 991.98px;
 $mobile: 767.98px;
 $base-size: 16;
 
-$background: #000;
 $main-color: gray;
+
+$background-color-light: white;
+$background-color-dark: black;
+
+$title-color-light: black;
+$title-color-dark: white;
+
+$hover-light: black;
+$hover-dark: white;
+
+$link-light: black;
+$link-dark: white;
+
+$logo-light: black;
+$logo-dark: white;
+
+$burger-bg-light: white;
+$burger-bg-dark: black;
+
+body.light {
+  --bg-color: #{$background-color-light};
+  --hover-color: #{$hover-light};
+  --link-color: #{$link-light};
+  --title-color: #{$title-color-light};
+  --logo-color: #{$link-light};
+  --burger-bg: #{$background-color-light};
+}
+
+body.dark {
+  --bg-color: #{$background-color-dark};
+  --hover-color: #{$hover-dark};
+  --link-color: #{$link-dark};
+  --title-color: #{$title-color-dark};
+  --logo-color: #{$logo-dark};
+  --burger-bg: #{$background-color-dark};
+}
+
+$background-color-light: white;
+$background-color-dark: black;
+
+body.light {
+  --bg-color: #{$background-color-light};
+}
+
+body.dark {
+  --bg-color: #{$background-color-dark};
+}

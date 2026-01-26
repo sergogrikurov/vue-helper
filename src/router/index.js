@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 import Home from "../views/Home.vue";
 import Slider from "@/views/Slider.vue";
+import Inputs from "@/views/Inputs.vue";
 
 const routes = [
   {
@@ -13,6 +14,7 @@ const routes = [
     children: [
       { path: "", name: "home", component: Home }, //alias: ["/"]//
       { path: "slider", name: "slider", component: Slider },
+      { path: "inputs", name: "inputs", component: Inputs },
     ],
   },
 ];

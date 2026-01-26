@@ -5,6 +5,7 @@ const messages = {
     nav: {
       home: "home",
       slider: "slider",
+      inputs: "inputs",
     },
     homePage: {
       home: "home",
@@ -18,6 +19,7 @@ const messages = {
     nav: {
       home: "главная",
       slider: "слайдер",
+      inputs: "инпуты",
     },
     homePage: {
       home: "главная",
