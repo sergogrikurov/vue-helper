@@ -7,14 +7,14 @@ import { useRouter, useRoute, RouterLink } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
-import Slider from "@/assets/images/slider.jpg";
+import Slider from "@/assets/images/slider/slider.jpg";
 </script>
 
 <template>
   <div class="home-page">
     <section class="home-page__slider home-page-slider">
       <h1 class="title">
-        <span class="red">/</span>{{ t("homePage.slider") }}
+        <span class="red">#</span>{{ t("homePage.slider") }}
       </h1>
 
       <div class="home-page-slider__wrapper">

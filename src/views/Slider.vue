@@ -1,102 +1,112 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useI18n } from "vue-i18n";
+const { locale, t } = useI18n();
 
-const { t } = useI18n();
+import Slide1 from "@/assets/images/slider/slide1.jpg";
+import Slide2 from "@/assets/images/slider/slide2.jpg";
+import Slide3 from "@/assets/images/slider/slide3.jpg";
+import Slide4 from "@/assets/images/slider/slide4.jpg";
+import Slide5 from "@/assets/images/slider/slide5.jpg";
+import Slide6 from "@/assets/images/slider/slide6.jpg";
+import Slide7 from "@/assets/images/slider/slide7.jpg";
+import Slide8 from "@/assets/images/slider/slide8.jpg";
 
-// ДАННЫЕ СЛАЙДОВ
-
+// 1️⃣ Слайды
 const slides = [
-  { text: "Slide 1", color: "#e74c3c" },
-  { text: "Slide 2", color: "#3498db" },
-  { text: "Slide 3", color: "#2ecc71" },
-  { text: "Slide 4", color: "#9b59b6" },
-  { text: "Slide 5", color: "#f1c40f" },
-  { text: "Slide 6", color: "#e67e22" },
-  { text: "Slide 7", color: "#1abc9c" },
-  { text: "Slide 8", color: "#34495e" },
+  { img: Slide1, alt: "Slide 1" },
+  { img: Slide2, alt: "Slide 2" },
+  { img: Slide3, alt: "Slide 3" },
+  { img: Slide4, alt: "Slide 4" },
+  { img: Slide5, alt: "Slide 5" },
+  { img: Slide6, alt: "Slide 6" },
+  { img: Slide7, alt: "Slide 7" },
+  { img: Slide8, alt: "Slide 8" },
 ];
 
-/**
- * НАСТРОЙКИ СЛАЙДЕРА
- */
-const current = ref(0); // индекс активного слайда
-const slidesToShow = ref(3); // сколько слайдов видно одновременно
-const slideWidth = 200; // ширина одного слайда (px)
-const gap = 20; // расстояние между слайдами
-const loop = ref(true); // зацикливание (не autoplay!)
+function getSlide(index) {
+  return slides[index % slides.length];
+}
 
-/**
- * ПЕРЕКЛЮЧЕНИЕ СЛАЙДОВ
- */
-const next = () => {
-  if (current.value < slides.length - 1) {
-    current.value++;
-  } else if (loop.value) {
-    current.value = 0;
-  }
-};
+// 2️⃣ Настройки
+const startIndex = ref(0); // с какой картинки начинать
+const visibleCount = ref(3); // видимые блоки (будет адаптивно)
+const autoScroll = ref(true); // автопрокрутка
+const enableSwipe = ref(true); // свайпы
+const scrollInterval = ref(2000); // интервал в миллисекундах
 
-const prev = () => {
-  if (current.value > 0) {
-    current.value--;
-  } else if (loop.value) {
-    current.value = slides.length - 1;
-  }
-};
-
-/**
- * SWIPE (touch + mouse)
- */
-const startX = ref(0);
-
-const onTouchStart = (e) => {
-  startX.value = e.touches ? e.touches[0].clientX : e.clientX;
-};
-
-const onTouchEnd = (e) => {
-  const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-
-  const diff = endX - startX.value;
-
-  if (diff > 50) prev(); // свайп вправо
-  if (diff < -50) next(); // свайп влево
-};
-
-/**
- * СМЕЩЕНИЕ КОНТЕЙНЕРА
- * Активный слайд всегда по центру
- */
-const translateX = computed(() => {
-  const offset = Math.floor(slidesToShow.value / 2);
-
-  let tx = (current.value - offset) * (slideWidth + gap);
-
-  const maxTranslate =
-    (slides.length - slidesToShow.value) * (slideWidth + gap);
-
-  // ограничиваем смещение, чтобы не уезжать за края
-  if (tx < 0) tx = 0;
-  if (tx > maxTranslate) tx = maxTranslate;
-
-  return `translateX(-${tx}px)`;
-});
-
-/**
- * AUTOPLAY (автопрокрутка)
- */
-const autoPlay = ref(true); // включить / выключить
-const intervalTime = 2000; // интервал в мс
 let intervalId = null;
 
-onMounted(() => {
-  if (autoPlay.value) {
-    intervalId = setInterval(next, intervalTime);
+// 3️⃣ Swipe переменные
+let touchStartX = 0;
+let touchEndX = 0;
+
+// 4️⃣ Функции переключения
+function next() {
+  startIndex.value++;
+  if (startIndex.value > slides.length - visibleCount.value)
+    startIndex.value = 0;
+}
+
+function prev() {
+  startIndex.value--;
+  if (startIndex.value < 0)
+    startIndex.value = slides.length - visibleCount.value;
+}
+
+// 5️⃣ Swipe обработчики
+function handleTouchStart(e) {
+  if (!enableSwipe.value) return;
+  touchStartX = e.touches[0].clientX;
+}
+
+function handleTouchEnd(e) {
+  if (!enableSwipe.value) return;
+  touchEndX = e.changedTouches[0].clientX;
+  const deltaX = touchStartX - touchEndX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) next();
+    else prev();
   }
+}
+
+function handleTouchMove(e) {
+  if (!enableSwipe.value) return;
+  touchEndX = e.touches[0].clientX;
+}
+
+// 6️⃣ Автопрокрутка
+onMounted(() => {
+  if (autoScroll.value) intervalId = setInterval(next, scrollInterval.value);
 });
 
-onBeforeUnmount(() => {
-  if (intervalId) clearInterval(intervalId);
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
+
+// 7️⃣ Адаптивный visibleCount через ширину окна
+function updateVisibleCount() {
+  const width = window.innerWidth;
+  if (width < 600) visibleCount.value = 1;
+  else if (width < 900) visibleCount.value = 2;
+  else visibleCount.value = 3;
+}
+
+// запускаем при монтировании
+onMounted(() => {
+  updateVisibleCount();
+  window.addEventListener("resize", updateVisibleCount);
+});
+
+// удаляем слушатель при размонтировании
+onUnmounted(() => {
+  window.removeEventListener("resize", updateVisibleCount);
+});
+
+// для активного слаида
+const activeIndex = computed(() => {
+  return Math.floor(visibleCount.value / 2);
 });
 </script>
 
@@ -107,23 +117,20 @@ onBeforeUnmount(() => {
       <button class="slider__button-prev" @click="prev"><span>‹</span></button>
 
       <div
-        class="slider__viewport"
-        @mousedown.prevent="onTouchStart"
-        @mouseup.prevent="onTouchEnd"
-        @touchstart.prevent="onTouchStart"
-        @touchend.prevent="onTouchEnd"
+        class="slider__slides"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
       >
-        <div class="slider__slides" :style="{ transform: translateX }">
-          <div
-            v-for="(slide, index) in slides"
-            :key="index"
-            class="slider__slide"
-            :class="{ active: index === current }"
-            :style="{ backgroundColor: slide.color }"
-          >
-            {{ slide.text }}
-          </div>
-        </div>
+        <div
+          v-for="(i, idx) in visibleCount"
+          :key="i"
+          class="slider__slide"
+          :class="{ slider__slide_active: idx === activeIndex }"
+          :style="{
+            backgroundImage: `url(${getSlide(startIndex + i - 1).img})`,
+          }"
+        ></div>
       </div>
 
       <button class="slider__button-next" @click="next"><span>›</span></button>
@@ -139,10 +146,13 @@ onBeforeUnmount(() => {
   &__wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    max-width: rem(1200);
     margin: 0 auto;
-    width: fit-content;
-
+    overflow: hidden;
+    gap: rem(10);
+    @media (max-width: rem(1024)) {
+      gap: 0;
+    }
     & button {
       width: rem(40);
       height: rem(40);
@@ -154,6 +164,9 @@ onBeforeUnmount(() => {
       align-items: center;
       justify-content: center;
       transition: all 0.3s;
+      @media (max-width: rem(1024)) {
+        display: none;
+      }
       & span {
         margin-top: rem(-7);
       }
@@ -164,41 +177,28 @@ onBeforeUnmount(() => {
     }
   }
 
-  &__viewport {
-    height: rem(360);
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    width: calc(3 * 200px + 2 * 20px); //200-slide width, 20 for margins
-    margin: rem(0) rem(20);
-  }
-
   &__slides {
     display: flex;
-    transition: transform 0.5s ease;
     align-items: center;
+    gap: rem(10);
+    width: 100%;
+    touch-action: pan-y; // разрешаем вертикальный скролл страницы
   }
 
   &__slide {
-    width: rem(200);
+    flex: 1 1 0;
     height: rem(300);
-    flex-shrink: 0;
-    margin: 0 rem(10);
+    background-size: cover;
+    background-position: center;
     border-radius: rem(10);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: rem(24);
-    transition: transform 0.5s ease;
-    transform: scale(0.8);
-    overflow: hidden;
-  }
-  &__slide.active {
-    transform: scale(1.2);
-    z-index: 2;
-    border-radius: rem(10);
-    overflow: hidden;
+    transition: all 0.5s ease;
+
+    &_active {
+      height: rem(360);
+      transform: scale(1);
+      opacity: 1;
+      z-index: 2;
+    }
   }
 }
 </style>
