@@ -12,6 +12,9 @@ import GitHub from "@/assets/images/github.svg";
 import Dark from "@/assets/images/dark-mode.svg";
 import Light from "@/assets/images/light-mode.svg";
 
+import { useLangRoute } from "@/composables/useLangRoute";
+const { langRoute } = useLangRoute();
+
 // them
 const { theme, toggleTheme } = useTheme();
 
@@ -69,93 +72,38 @@ onMounted(() => {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     theme.value = savedTheme;
-    document.body.className = savedTheme; // сразу ставим класс
+    document.body.className = savedTheme;
   }
 });
 </script>
 
 <template>
   <header class="header">
-    <!-- Логотип слева -->
-    <div class="header__logo">
-      <Logo />
-    </div>
-
-    <!-- Desktop Nav -->
-    <nav class="header__nav">
-      <RouterLink
-        class="header__nav_link"
-        :to="{ name: 'home', params: { lang: locale } }"
-      >
-        <span class="red">#</span>{{ t("nav.home") }}
-      </RouterLink>
-
-      <RouterLink
-        class="header__nav_link"
-        :to="{ name: 'slider', params: { lang: locale } }"
-      >
-        <span class="red">#</span>{{ t("nav.slider") }}
-      </RouterLink>
-
-      <RouterLink
-        class="header__nav_link"
-        :to="{ name: 'inputs', params: { lang: locale } }"
-      >
-        <span class="red">#</span>{{ t("nav.inputs") }}
-      </RouterLink>
-
-      <button class="header__nav_theme" @click="toggleTheme">
-        <img
-          v-if="theme === 'light'"
-          :src="Light"
-          alt="Переключить на тёмную тему"
-        />
-        <img v-else :src="Dark" alt="Переключить на светлую тему" />
-      </button>
-
-      <!-- LANG SWITCHER -->
-      <div class="header__lang" ref="langRef" @click="toggleLang">
-        <p>{{ locale.toUpperCase() }}</p>
-        <img :src="Chek" alt="arrow" :class="{ open: langOpen }" />
-        <div v-if="langOpen" class="header__lang-dropdown">
-          <div class="header__lang-dropdown_link" @click.stop="setLang('en')">
-            EN
-          </div>
-          <div class="header__lang-dropdown_link" @click.stop="setLang('ru')">
-            RU
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Burger button для мобильного -->
-    <button class="header__burger" @click="menuOpen = true"></button>
-    <div v-if="menuOpen" class="header__burger-body">
-      <div class="header__burger-body_top">
+    <div class="header__wrapper">
+      <!-- Логотип слева -->
+      <div class="header__logo">
         <Logo />
-        <span class="header__burger-close" @click="menuOpen = false">X</span>
       </div>
-      <nav class="header__burger-nav">
+
+      <!-- Desktop Nav -->
+      <nav class="header__nav">
         <RouterLink
-          class="header__burger-nav_link"
+          class="header__nav_link"
           :to="{ name: 'home', params: { lang: locale } }"
-          @click="menuOpen = false"
         >
           <span class="red">#</span>{{ t("nav.home") }}
         </RouterLink>
 
         <RouterLink
-          class="header__burger-nav_link"
+          class="header__nav_link"
           :to="{ name: 'slider', params: { lang: locale } }"
-          @click="menuOpen = false"
         >
           <span class="red">#</span>{{ t("nav.slider") }}
         </RouterLink>
 
         <RouterLink
-          class="header__burger-nav_link"
+          class="header__nav_link"
           :to="{ name: 'inputs', params: { lang: locale } }"
-          @click="menuOpen = false"
         >
           <span class="red">#</span>{{ t("nav.inputs") }}
         </RouterLink>
@@ -183,14 +131,77 @@ onMounted(() => {
           </div>
         </div>
       </nav>
-      <div class="header__burger-body_footer">
-        <a
-          href="https://github.com/sergogrikurov"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img :src="GitHub" alt="GitHub logo" />
-        </a>
+
+      <!-- Burger button для мобильного -->
+      <button class="header__burger" @click="menuOpen = true"></button>
+      <div v-if="menuOpen" class="header__burger-body">
+        <div class="header__burger-body_top">
+          <Logo />
+          <span class="header__burger-close" @click="menuOpen = false">X</span>
+        </div>
+        <nav class="header__burger-nav">
+          <RouterLink
+            class="header__burger-nav_link"
+            :to="{ name: 'home', params: { lang: locale } }"
+            @click="menuOpen = false"
+          >
+            <span class="red">#</span>{{ t("nav.home") }}
+          </RouterLink>
+
+          <RouterLink
+            class="header__burger-nav_link"
+            :to="{ name: 'slider', params: { lang: locale } }"
+            @click="menuOpen = false"
+          >
+            <span class="red">#</span>{{ t("nav.slider") }}
+          </RouterLink>
+
+          <RouterLink
+            class="header__burger-nav_link"
+            :to="{ name: 'inputs', params: { lang: locale } }"
+            @click="menuOpen = false"
+          >
+            <span class="red">#</span>{{ t("nav.inputs") }}
+          </RouterLink>
+
+          <button class="header__nav_theme" @click="toggleTheme">
+            <img
+              v-if="theme === 'light'"
+              :src="Light"
+              alt="Переключить на тёмную тему"
+            />
+            <img v-else :src="Dark" alt="Переключить на светлую тему" />
+          </button>
+
+          <!-- LANG SWITCHER -->
+          <div class="header__lang" ref="langRef" @click="toggleLang">
+            <p>{{ locale.toUpperCase() }}</p>
+            <img :src="Chek" alt="arrow" :class="{ open: langOpen }" />
+            <div v-if="langOpen" class="header__lang-dropdown">
+              <div
+                class="header__lang-dropdown_link"
+                @click.stop="setLang('en')"
+              >
+                EN
+              </div>
+              <div
+                class="header__lang-dropdown_link"
+                @click.stop="setLang('ru')"
+              >
+                RU
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="header__burger-body_footer">
+          <a
+            href="https://github.com/sergogrikurov"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img :src="GitHub" alt="GitHub logo" />
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -201,12 +212,20 @@ onMounted(() => {
   color: var(--link-color);
 }
 .header {
-  width: 100%;
+  position: fixed;
+  @include adaptive-value(width, 1720, 290);
   height: rem(80);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
+  z-index: 100;
+  border-bottom: rem(1) solid var(--header-border);
+  background-color: var(--header-bg);
+  &__wrapper {
+    width: 100%;
+    height: rem(80);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
   &__logo {
     z-index: 60;
   }
@@ -313,7 +332,7 @@ onMounted(() => {
       position: fixed;
       inset: 0;
       background-color: var(--burger-bg);
-      z-index: 100;
+      z-index: 200;
       display: flex;
       flex-direction: column;
       padding: rem(30);

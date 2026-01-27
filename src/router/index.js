@@ -5,18 +5,15 @@ import Inputs from "@/views/Inputs.vue";
 
 const routes = [
   {
-    path: "/",
-    redirect: "/en", // или "/ru"
-  },
-  {
     path: "/:lang(en|ru)",
     component: RouterView,
     children: [
-      { path: "", name: "home", component: Home }, //alias: ["/"]//
+      { path: "", name: "home", component: Home },
       { path: "slider", name: "slider", component: Slider },
       { path: "inputs", name: "inputs", component: Inputs },
     ],
   },
+  { path: "/", redirect: "/en" },
 ];
 
 const router = createRouter({

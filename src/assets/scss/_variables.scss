@@ -22,6 +22,11 @@ $logo-dark: white;
 $burger-bg-light: white;
 $burger-bg-dark: black;
 
+$header-bg-light: white;
+$header-bg-dark: black;
+$header-border-light: black;
+$header-border-dark: white;
+
 body.light {
   --bg-color: #{$background-color-light};
   --hover-color: #{$hover-light};
@@ -29,6 +34,8 @@ body.light {
   --title-color: #{$title-color-light};
   --logo-color: #{$link-light};
   --burger-bg: #{$background-color-light};
+  --header-bg: #{$header-bg-light};
+  --header-border: #{$header-border-light};
 }
 
 body.dark {
@@ -38,15 +45,6 @@ body.dark {
   --title-color: #{$title-color-dark};
   --logo-color: #{$logo-dark};
   --burger-bg: #{$background-color-dark};
-}
-
-$background-color-light: white;
-$background-color-dark: black;
-
-body.light {
-  --bg-color: #{$background-color-light};
-}
-
-body.dark {
-  --bg-color: #{$background-color-dark};
+  --header-bg: #{$header-bg-dark};
+  --header-border: #{$header-border-dark};
 }
