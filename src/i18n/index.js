@@ -27,7 +27,16 @@ const messages = {
       passwordMax: "Password must be at most {max} characters",
       passwordPattern: "Password can only contain Latin letters and numbers",
       passwordMismatch: "Passwords do not match",
+      passwordMismatch: "Passwords do not match",
       agreeRequired: "You must agree to the terms",
+
+      login: "login",
+      loginBtn: "login",
+      required: "This field is required",
+      emailInvalid: "Invalid email address",
+      passwordMin: "Password must be at least 6 characters",
+
+      success: "Success",
     },
     footer: {
       copy: "Copyright 2025. Made by SG",
@@ -59,7 +68,17 @@ const messages = {
       passwordMax: "Пароль должен быть не больше {max} символов",
       passwordPattern: "Пароль может содержать только латинские буквы и цифры",
       passwordMismatch: "Пароли не совпадают",
+      passwordMismatch: "Пароли не совпадают",
+
       agreeRequired: "Необходимо согласиться с правилами",
+
+      login: "авторизация",
+      loginBtn: "войти",
+      required: "Поле обязательно",
+      emailInvalid: "Неверный email",
+      passwordMin: "Минимум 6 символов",
+
+      success: "успешно",
     },
     footer: {
       copy: "Все права защищены 2025. Сделал SG",

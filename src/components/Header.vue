@@ -12,9 +12,6 @@ import GitHub from "@/assets/images/github.svg";
 import Dark from "@/assets/images/dark-mode.svg";
 import Light from "@/assets/images/light-mode.svg";
 
-import { useLangRoute } from "@/composables/useLangRoute";
-const { langRoute } = useLangRoute();
-
 // them
 const { theme, toggleTheme } = useTheme();
 
