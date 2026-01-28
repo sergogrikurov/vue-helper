@@ -43,6 +43,20 @@ const messages = {
       passwordMin: "Password must be at least 6 characters",
 
       success: "Success",
+
+      inputFile: "input file",
+
+      file: {
+        errors: {
+          type: "Only image files are allowed",
+          size: "The file size must be less than 2 MB",
+        },
+        basic: "Basic File Input",
+        preview: "File Input with Preview",
+        multiple: "Multiple File Input",
+        label: "Select file",
+        placeholder: "No file chosen",
+      },
     },
     footer: {
       copy: "Copyright 2025. Made by SG",
@@ -91,6 +105,20 @@ const messages = {
       passwordMin: "Минимум 6 символов",
 
       success: "успешно",
+
+      inputFile: "инпут файл",
+
+      file: {
+        errors: {
+          type: "Разрешены только изображения",
+          size: "Файл должен быть меньше 2 МБ",
+        },
+        basic: "Базовый инпут Файл",
+        preview: "Инпут файл с просмотром",
+        multiple: "Множественный инпут файл",
+        label: "Выбрать файл",
+        placeholder: "Файл не выбран",
+      },
     },
     footer: {
       copy: "Все права защищены 2025. Сделал SG",

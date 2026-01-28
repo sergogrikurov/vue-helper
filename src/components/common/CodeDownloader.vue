@@ -32,11 +32,7 @@ function download() {
 
 <template>
   <div class="download">
-    <button
-      @click="download"
-      class="download__button"
-      :disabled="isDownloading"
-    >
+    <button @click="download" class="button-blue" :disabled="isDownloading">
       {{
         isDownloading
           ? t("download.inProgress")
@@ -56,29 +52,7 @@ function download() {
   flex-direction: column;
   gap: rem(15);
   text-align: center;
-  &__button {
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: rem(8) rem(16);
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: rem(5);
-    cursor: pointer;
-    transition: background 0.2s;
-    &:hover {
-      background-color: #2563eb;
-    }
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    &:hover:enabled {
-      background-color: #2563eb;
-    }
-  }
+
   &__info {
     font-size: rem(12);
     margin-top: rem(4);

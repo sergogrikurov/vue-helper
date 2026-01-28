@@ -135,8 +135,69 @@ h6 {
   }
 }
 
+.title-small {
+  color: var(--title-color);
+  display: flex;
+  gap: rem(3);
+  font-size: rem(20);
+  & span {
+    color: red;
+  }
+}
+
 .error {
   color: red;
   font-size: rem(14);
   margin-top: rem(5);
+}
+
+.button-blue {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: rem(8) rem(16);
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: rem(5);
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background-color: #2563eb;
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  &:hover:enabled {
+    background-color: #2563eb;
+  }
+}
+
+.button-green {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: rem(8) rem(16);
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: rem(5);
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background-color: #059669;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
+    background-color: #059669;
+  }
 }

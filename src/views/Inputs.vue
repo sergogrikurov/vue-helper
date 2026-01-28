@@ -1,6 +1,7 @@
 <script setup>
 import Registration from "@/components/inputs/Registration.vue";
 import Login from "@/components/inputs/Login.vue";
+import FileInput from "@/components/inputs/FileInput.vue";
 
 import { useI18n } from "vue-i18n";
 
@@ -12,6 +13,7 @@ const { t } = useI18n();
     <h2 class="title"><span class="red">/</span>{{ t("inputs.title") }}</h2>
     <Registration />
     <Login />
+    <FileInput />
   </div>
 </template>
 <style lang="scss" scoped>
