@@ -2,6 +2,11 @@ import { createI18n } from "vue-i18n";
 
 const messages = {
   en: {
+    download: {
+      download: "Download",
+      inProgress: "Downloading...",
+      info: "The file will be saved in your browser's download folder. Please wait...",
+    },
     nav: {
       home: "home",
       slider: "slider",
@@ -10,6 +15,7 @@ const messages = {
     homePage: {
       home: "home",
       slider: "slider",
+      viewAll: "View All",
     },
     inputs: {
       title: "inputs",
@@ -43,6 +49,11 @@ const messages = {
     },
   },
   ru: {
+    download: {
+      download: "Скачать",
+      inProgress: "Идёт скачивание...",
+      info: "Файл будет сохранён в папку загрузок вашего браузера. Подождите...",
+    },
     nav: {
       home: "главная",
       slider: "слайдер",
@@ -51,6 +62,7 @@ const messages = {
     homePage: {
       home: "главная",
       slider: "слайдер",
+      viewAll: "Смотреть полностью",
     },
     inputs: {
       title: "инпуты",

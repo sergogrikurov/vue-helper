@@ -1,13 +1,14 @@
 <script setup>
 import { useI18n } from "vue-i18n";
-const { locale, t } = useI18n();
+import { RouterLink } from "vue-router";
 
-import { useRouter, useRoute, RouterLink } from "vue-router";
-
-const router = useRouter();
-const route = useRoute();
-
+import CodeDownloader from "@/components/common/CodeDownloader.vue";
 import Slider from "@/assets/images/slider/slider.jpg";
+
+// 🔹 Правильный импорт как текст для скачивания
+import sliderCode from "./Slider.vue?raw";
+
+const { locale, t } = useI18n();
 </script>
 
 <template>
@@ -19,10 +20,16 @@ import Slider from "@/assets/images/slider/slider.jpg";
 
       <div class="home-page-slider__wrapper">
         <RouterLink :to="{ name: 'slider', params: { lang: locale } }">
-          <div class="home-page-slider__image">
+          <div class="home-page-slider__link">
             <img :src="Slider" alt="Slider Image" />
+            <span class="home-page-slider__link_text">{{
+              t("homePage.viewAll")
+            }}</span>
           </div>
         </RouterLink>
+
+        <!-- Универсальная кнопка скачивания -->
+        <CodeDownloader :code="sliderCode" filename="Slider.vue" />
       </div>
     </section>
   </div>
@@ -39,20 +46,31 @@ import Slider from "@/assets/images/slider/slider.jpg";
   @include adaptive-value(gap, 50, 30);
 
   &__wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: rem(20);
   }
-  &__image {
+  &__link {
     @include adaptive-value(width, 700, 290);
     & img {
       transition: all 0.3s ease;
       display: block;
       width: 100%;
       height: 100%;
-      &:hover {
-        scale: 1.1;
-      }
+    }
+    &_text {
+      position: absolute;
+      bottom: 53%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      pointer-events: none;
     }
   }
 }

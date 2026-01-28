@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useI18n } from "vue-i18n";
-const { locale, t } = useI18n();
+const { t } = useI18n();
 
 import Slide1 from "@/assets/images/slider/slide1.jpg";
 import Slide2 from "@/assets/images/slider/slide2.jpg";
@@ -132,8 +132,6 @@ const activeIndex = computed(() => {
           }"
         ></div>
       </div>
-
-      <button class="slider__button-next" @click="next"><span>›</span></button>
     </div>
   </section>
 </template>
