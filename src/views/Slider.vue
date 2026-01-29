@@ -138,6 +138,8 @@ const activeIndex = computed(() => {
 
 <style scoped lang="scss">
 .slider {
+  @include adaptive-value(padding-top, 50, 20);
+  @include adaptive-value(padding-bottom, 50, 20);
   h2 {
     margin-bottom: rem(50);
   }

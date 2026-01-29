@@ -1,0 +1,37 @@
+Чтобы подключить SCSS  в Vue нужно:
+
+1. npm install -D sass
+2. Создаём путь и файл assets/scss/main.scss
+3. Подключаем в main.js сверху import "./assets/scss/main.scss";
+4. В компоненте <style lang="scss" scoped>
+5. Для подключения других фаилов scss нужно в main.scss внутри него @use "./base.scss";
+6. Для подключения фаилов scss с глобальной видимостью нужно в фаиле vite.config.js 
+css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "@/assets/scss/variables" as *;
+        `,
+      },
+    },
+  },
+7. Чтобы подключить одим файл scss в другой файл scss глобально нужно @use "./variables" as *;
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+1. npm install -D sass
+2. Create the path and file: assets/scss/main.scss
+3. Import it in main.js at the top: import "./assets/scss/main.scss";
+4. In a component use <style lang="scss" scoped>
+5. To include other SCSS files, inside main.scss use @use "./base.scss";
+6. To make SCSS files globally available, configure vite.config.js:
+css: {
+  preprocessorOptions: {
+    scss: {
+      additionalData: `
+        @use "@/assets/scss/variables" as *;
+      `,
+    },
+  },
+},
+7. To include one SCSS file into another SCSS file globally, use @use "./variables" as *;

@@ -9,11 +9,13 @@ const messages = {
     },
     nav: {
       home: "home",
+      integrations: "integrations",
       slider: "slider",
       inputs: "inputs",
     },
     homePage: {
       home: "home",
+      integrations: "integrations",
       slider: "slider",
       viewAll: "View All",
     },
@@ -71,11 +73,13 @@ const messages = {
     },
     nav: {
       home: "главная",
+      integrations: "интеграции",
       slider: "слайдер",
       inputs: "инпуты",
     },
     homePage: {
       home: "главная",
+      integrations: "интеграции",
       slider: "слайдер",
       viewAll: "Смотреть полностью",
     },

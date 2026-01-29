@@ -15,6 +15,23 @@ const { locale, t } = useI18n();
 
 <template>
   <div class="home-page">
+    <section class="home-page__integrations home-page-integrations">
+      <h2 class="title">
+        <span class="red">#</span>{{ t("homePage.integrations") }}
+      </h2>
+
+      <div class="home-page-integrations__wrapper">
+        <RouterLink :to="{ name: 'integrations', params: { lang: locale } }">
+          <div class="home-page-integrations__link">
+            <img :src="Slider" alt="Slider Image" />
+            <span class="home-pageintegrationsr__link_text">{{
+              t("homePage.viewAll")
+            }}</span>
+          </div>
+        </RouterLink>
+      </div>
+    </section>
+
     <section class="home-page__slider home-page-slider">
       <h2 class="title">
         <span class="red">#</span>{{ t("homePage.slider") }}
@@ -34,6 +51,7 @@ const { locale, t } = useI18n();
         <CodeDownloader :code="sliderCode" filename="Slider.vue" />
       </div>
     </section>
+
     <section class="home-page__inputs home-page-inputs">
       <h2 class="title"><span class="red">#</span>{{ t("inputs.title") }}</h2>
 

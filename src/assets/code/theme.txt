@@ -1,0 +1,121 @@
+Для интеграции темы во Vue нужно:
+1. Создать фаил composables/useTheme.js и в него
+import { ref, watchEffect } from "vue";
+
+export function useTheme() {
+  // сразу берём класс body, если установлен в index.html
+  const theme = ref(document.body.className || "light");
+
+  // флаг для включения transition после первого рендера
+  const transitionReady = ref(false);
+
+  watchEffect(() => {
+    // устанавливаем класс на body
+    document.body.className = theme.value;
+
+    // сохраняем выбор в localStorage
+    localStorage.setItem("theme", theme.value);
+
+    // включаем плавный переход только один раз
+    if (!transitionReady.value) {
+      setTimeout(() => {
+        document.body.style.transition = "background-color 0.3s, color 0.3s";
+        transitionReady.value = true;
+      }, 0);
+    }
+  });
+
+  function toggleTheme() {
+    theme.value = theme.value === "dark" ? "light" : "dark";
+  }
+
+  return { theme, toggleTheme };
+}
+2. Подключаем его например в Header.vue 
+import { useTheme } from "@/composables/useTheme.js";
+const { theme, toggleTheme } = useTheme();
+// dropdown языка
+const langOpen = ref(false);
+const langRef = ref(null);
+
+<button class="header__nav_theme" @click="toggleTheme">
+          <span v-if="theme === 'light'">Light</span>
+          <span v-else>Dark</span>
+        </button>
+3. Создаём файл variables.scss и в него например
+$background-color-light: white;
+$background-color-dark: black;
+
+body.light {
+  --bg-color: #{$background-color-light};
+}
+
+body.dark {
+  --bg-color: #{$background-color-dark};
+}
+4. В html, body
+html,
+body {
+  background-color: var(--bg-color);
+}
+
+//////////////////////////////////////////////////////////////
+
+To integrate a theme in Vue you need to:
+
+1. Create a file composables/useTheme.js and add:
+import { ref, watchEffect } from "vue";
+
+export function useTheme() {
+const theme = ref(document.body.className || "light");
+const transitionReady = ref(false);
+
+watchEffect(() => {
+document.body.className = theme.value;
+localStorage.setItem("theme", theme.value);
+
+if (!transitionReady.value) {  
+  setTimeout(() => {  
+    document.body.style.transition = "background-color 0.3s, color 0.3s";  
+    transitionReady.value = true;  
+  }, 0);  
+}  
+
+
+});
+
+function toggleTheme() {
+theme.value = theme.value === "dark" ? "light" : "dark";
+}
+
+return { theme, toggleTheme };
+}
+
+2. Import it in a component, for example Header.vue:
+import { useTheme } from "@/composables/useTheme.js";
+const { theme, toggleTheme } = useTheme();
+const langOpen = ref(false);
+const langRef = ref(null);
+
+<button class="header__nav_theme" @click="toggleTheme">
+<span v-if="theme === 'light'">Light</span>
+<span v-else>Dark</span>
+</button>
+
+3. Create a file variables.scss and add:
+$background-color-light: white;
+$background-color-dark: black;
+
+body.light {
+--bg-color: #{$background-color-light};
+}
+
+body.dark {
+--bg-color: #{$background-color-dark};
+}
+
+4. In html, body styles:
+html,
+body {
+background-color: var(--bg-color);
+}

@@ -1,0 +1,213 @@
+Для интеграции языка во Vue нужно:
+1. npm install vue-i18n
+2. Создаём файл composables/useLangRoute.js
+import { useI18n } from "vue-i18n";
+
+export function useLangRoute() {
+  const { locale } = useI18n();
+
+  const langRoute = (name, params = {}) => {
+    return {
+      name,
+      params: { ...params, lang: locale.value },
+    };
+  };
+
+  return { langRoute };
+}
+3. Настраиваем маршруты router/index.js 
+const routes = [
+  {
+    path: "/:lang(en|ru)",
+    component: RouterView,
+    children: [
+      { path: "", name: "home", component: Home },
+    ],
+  },
+  { path: "/", redirect: "/en" },
+];
+4. В App.vue 
+<script setup>
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n();
+
+router.isReady().then(() => {
+  const langFromRoute = router.currentRoute.value.params.lang;
+  const langFromStorage = localStorage.getItem("lang");
+
+  locale.value = langFromRoute || langFromStorage || "en";
+});
+</script>
+5. В Header.vue 
+import { useI18n } from "vue-i18n";
+// i18n
+const { locale, t } = useI18n();
+// переключение языка
+const setLang = (lang) => {
+  locale.value = lang;
+  localStorage.setItem("lang", lang);
+
+  router.push({
+    name: route.name,
+    params: { ...route.params, lang },
+    query: route.query,
+  });
+
+  langOpen.value = false;
+  menuOpen.value = false;
+};
+// dropdown языка
+const langOpen = ref(false);
+const langRef = ref(null);
+// toggle dropdown языка
+const toggleLang = () => {
+  langOpen.value = !langOpen.value;
+};
+
+<div class="header__lang" ref="langRef" @click="toggleLang">
+          <p>{{ locale.toUpperCase() }}</p>
+          <img :src="Chek" alt="arrow" :class="{ open: langOpen }" />
+          <div v-if="langOpen" class="header__lang-dropdown">
+            <div class="header__lang-dropdown_link" @click.stop="setLang('en')">
+              EN
+            </div>
+            <div class="header__lang-dropdown_link" @click.stop="setLang('ru')">
+              RU
+            </div>
+          </div>
+        </div>
+
+6. Создаём файл для переводов src/i18n/index.js
+import { createI18n } from "vue-i18n";
+
+const messages = {
+ en: {
+	nav: {
+      home: "home",
+    },
+ },
+  ru: {
+	nav: {
+      home: "главная",
+    },
+  },
+	};
+7. На странице используем {{ t("nav.home") }}
+
+////////////////////////////////////////////////////
+
+1. npm install vue-i18n
+2. Create a file composables/useLangRoute.js
+import { useI18n } from "vue-i18n";
+
+export function useLangRoute() {
+  const { locale } = useI18n();
+
+  const langRoute = (name, params = {}) => {
+    return {
+      name,
+      params: { ...params, lang: locale.value },
+    };
+  };
+
+  return { langRoute };
+}
+3. Configure routes in router/index.js
+const routes = [
+  {
+    path: "/:lang(en|ru)",
+    component: RouterView,
+    children: [
+      { path: "", name: "home", component: Home },
+    ],
+  },
+  { path: "/", redirect: "/en" },
+];
+4. In App.vue
+import { useI18n } from "vue-i18n";
+
+const { locale, t } = useI18n();
+
+// language switch
+const setLang = (lang) => {
+  locale.value = lang;
+  localStorage.setItem("lang", lang);
+
+  router.push({
+    name: route.name,
+    params: { ...route.params, lang },
+    query: route.query,
+  });
+
+  langOpen.value = false;
+  menuOpen.value = false;
+};
+
+// language dropdown
+const langOpen = ref(false);
+const langRef = ref(null);
+
+// toggle dropdown
+const toggleLang = () => {
+  langOpen.value = !langOpen.value;
+};
+5. In Header.vue
+import { useI18n } from "vue-i18n";
+
+const { locale, t } = useI18n();
+
+// language switch
+const setLang = (lang) => {
+  locale.value = lang;
+  localStorage.setItem("lang", lang);
+
+  router.push({
+    name: route.name,
+    params: { ...route.params, lang },
+    query: route.query,
+  });
+
+  langOpen.value = false;
+  menuOpen.value = false;
+};
+
+// language dropdown
+const langOpen = ref(false);
+const langRef = ref(null);
+
+// toggle dropdown
+const toggleLang = () => {
+  langOpen.value = !langOpen.value;
+};
+
+<div class="header__lang" ref="langRef" @click="toggleLang">
+  <p>{{ locale.toUpperCase() }}</p>
+  <img :src="Chek" alt="arrow" :class="{ open: langOpen }" />
+  <div v-if="langOpen" class="header__lang-dropdown">
+    <div class="header__lang-dropdown_link" @click.stop="setLang('en')">
+      EN
+    </div>
+    <div class="header__lang-dropdown_link" @click.stop="setLang('ru')">
+      RU
+    </div>
+  </div>
+</div>
+
+6. Create a translations file src/i18n/index.js
+import { createI18n } from "vue-i18n";
+
+const messages = {
+  en: {
+    nav: {
+      home: "home",
+    },
+  },
+  ru: {
+    nav: {
+      home: "главная",
+    },
+  },
+};
+7. Use translations on pages like:
+{{ t("nav.home") }}

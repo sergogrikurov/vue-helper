@@ -93,6 +93,13 @@ onMounted(() => {
 
         <RouterLink
           class="header__nav_link"
+          :to="{ name: 'integrations', params: { lang: locale } }"
+        >
+          <span class="red">#</span>{{ t("nav.integrations") }}
+        </RouterLink>
+
+        <RouterLink
+          class="header__nav_link"
           :to="{ name: 'slider', params: { lang: locale } }"
         >
           <span class="red">#</span>{{ t("nav.slider") }}
@@ -143,6 +150,14 @@ onMounted(() => {
             @click="menuOpen = false"
           >
             <span class="red">#</span>{{ t("nav.home") }}
+          </RouterLink>
+
+          <RouterLink
+            class="header__burger-nav_link"
+            :to="{ name: 'integrations', params: { lang: locale } }"
+            @click="menuOpen = false"
+          >
+            <span class="red">#</span>{{ t("nav.integrations") }}
           </RouterLink>
 
           <RouterLink
