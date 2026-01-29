@@ -187,6 +187,7 @@ const onSubmit = (e) => {
         </button>
       </div>
     </form>
+
     <Modal :show="modalOpen" :duration="1000" @close="modalOpen = false">
       <h3>✅ {{ t("inputs.success") }}</h3>
     </Modal>
@@ -201,7 +202,7 @@ const onSubmit = (e) => {
   flex-direction: column;
   gap: rem(20);
   max-width: rem(700);
-  margin: rem(50) auto;
+  margin: rem(50) auto rem(25) auto;
   box-shadow: 0 4px 10px rgba(192, 243, 247, 0.6);
   transition: box-shadow 0.3s ease;
 

@@ -44,12 +44,19 @@ function onChange(event) {
 
   event.target.value = ""; // сброс input для выбора новых файлов
 }
+
+function removeFile(index) {
+  files.value.splice(index, 1);
+  previews.value.splice(index, 1);
+}
 </script>
 
 <template>
   <div class="multiple">
     <!-- Заголовок -->
-    <h4 class="title-small"><span>*</span>{{ t("inputs.file.multiple") }}</h4>
+    <h4 class="title-small">
+      <span>*</span>{{ t("inputs.file.multiplePreviewRemove") }}
+    </h4>
 
     <!-- Кнопка выбора файлов -->
     <div class="multiple__wrapper">
@@ -88,12 +95,21 @@ function onChange(event) {
 
       <!-- preview -->
       <div class="multiple__preview" v-if="previews.length">
-        <img
+        <div
           v-for="(src, index) in previews"
           :key="index"
-          :src="src"
-          alt="preview"
-        />
+          class="multiple__preview-item"
+        >
+          <img :src="src" alt="preview" />
+
+          <button
+            type="button"
+            class="multiple__remove"
+            @click="removeFile(index)"
+          >
+            ✕
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -146,6 +162,32 @@ function onChange(event) {
       object-fit: cover;
       border-radius: rem(5);
       border: rem(1) solid #ccc;
+    }
+  }
+
+  &__preview-item {
+    position: relative;
+  }
+
+  &__remove {
+    position: absolute;
+    top: rem(5);
+    right: rem(5);
+    width: rem(24);
+    height: rem(24);
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: rem(14);
+    line-height: 1;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
     }
   }
 }

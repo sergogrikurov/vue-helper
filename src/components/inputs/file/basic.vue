@@ -72,8 +72,11 @@ function onChange(event) {
   flex-direction: column;
   align-items: center;
   gap: rem(30);
+  padding-bottom: rem(25);
   &__button-wrapper {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
   }
 

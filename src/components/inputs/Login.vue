@@ -121,7 +121,7 @@ const submitForm = () => {
   flex-direction: column;
   gap: rem(20);
   max-width: rem(700);
-  margin: rem(50) auto;
+  margin: rem(50) auto rem(25) auto;
   box-shadow: 0 4px 10px rgba(192, 243, 247, 0.6);
   transition: box-shadow 0.3s ease;
 
