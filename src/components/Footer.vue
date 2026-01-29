@@ -1,14 +1,24 @@
 <script setup>
-import Logo from "./Logo.vue";
+import { useRouter, useRoute } from "vue-router";
+import GitHub from "@/assets/images/github.svg";
 
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+
+const router = useRouter();
+const route = useRoute();
 </script>
 <template>
   <footer class="footer">
     <div class="footer__top">
-      <Logo />
+      <a
+        href="https://github.com/sergogrikurov"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img :src="GitHub" alt="GitHub logo" />
+      </a>
       <a href="mailto:sergogrikurov@gmail.com">sergogrikurov@gmail.com</a>
     </div>
     <div class="footer__copy">© {{ t("footer.copy") }}</div>

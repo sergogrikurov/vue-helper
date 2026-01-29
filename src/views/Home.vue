@@ -4,6 +4,7 @@ import { RouterLink } from "vue-router";
 
 import CodeDownloader from "@/components/common/CodeDownloader.vue";
 
+import Integration from "@/assets/images/integration/integration.jpg";
 import Slider from "@/assets/images/slider/slider.jpg";
 import Inputs from "@/assets/images/inputs/inputs.jpg";
 
@@ -23,8 +24,8 @@ const { locale, t } = useI18n();
       <div class="home-page-integrations__wrapper">
         <RouterLink :to="{ name: 'integrations', params: { lang: locale } }">
           <div class="home-page-integrations__link">
-            <img :src="Slider" alt="Slider Image" />
-            <span class="home-pageintegrationsr__link_text">{{
+            <img :src="Integration" alt="Integration Image" />
+            <span class="home-page-integrations__link_text">{{
               t("homePage.viewAll")
             }}</span>
           </div>
@@ -81,6 +82,43 @@ const { locale, t } = useI18n();
     padding-bottom: rem(25);
   }
 }
+
+.home-page-integrations {
+  display: flex;
+  flex-direction: column;
+  @include adaptive-value(gap, 50, 30);
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__link {
+    @include adaptive-value(width, 700, 290);
+    & img {
+      transition: all 0.3s ease;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    &_text {
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background-color: #fff;
+      color: black;
+      padding: rem(7) rem(15);
+      border-radius: rem(4);
+      font-size: rem(20);
+      pointer-events: none;
+    }
+  }
+}
+
 .home-page-slider {
   display: flex;
   flex-direction: column;
@@ -108,9 +146,9 @@ const { locale, t } = useI18n();
       transform: translateX(-50%);
       color: white;
       background: rgba(0, 0, 0, 0.5);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 14px;
+      padding: rem(4) rem(8);
+      border-radius: rem(4);
+      font-size: rem(20);
       pointer-events: none;
     }
   }
@@ -141,9 +179,9 @@ const { locale, t } = useI18n();
       transform: translateX(-50%);
       color: white;
       background: rgba(0, 0, 0, 0.5);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 14px;
+      padding: rem(4) rem(8);
+      border-radius: rem(4);
+      font-size: rem(20);
       pointer-events: none;
     }
   }
