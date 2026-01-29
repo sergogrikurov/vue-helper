@@ -1,25 +1,51 @@
-# vue-helper
+# 🌟 Vue Helper
 
-This template should help get you started developing with Vue 3 in Vite.
+A **feature-rich Vue 3 project** built with Vite, designed to provide **helpers, UI components, and integrations** for modern web development.  
+Supports **multilanguage**, **light/dark themes**, and fully **responsive design**.
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🔧 Tech Stack
 
-## Recommended Browser Setup
+- **Vue 3** (Composition API)  
+- **Vite** (Fast build & dev)  
+- **SCSS** (Modular styling)  
+- **Vue Router** (Hash mode for GitHub Pages)  
+- **Vue I18n** (Multilanguage support)  
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+---
 
-## Customize configuration
+## 🌍 Features
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 🌐 Multilanguage
+- English & Russian (EN / RU)  
+- Route-based language switching (`/:lang`)  
+- LocalStorage remembers your last selected language  
 
-## Project Setup
+### 🎨 Themes
+- Light & Dark theme toggle  
+- Theme persistence using localStorage  
+- Smooth transitions between themes  
+
+### 🛠 Helpers & Integrations
+- **🔹 Slider** – Interactive sliders for UI components  
+- **🔹 Inputs** – Custom inputs with validation helpers  
+- **🔹 Integrations** – Ready-made UI integrations and components  
+- **🔹 Other helpers** – Utility functions for faster development  
+
+### 📱 Responsive Design
+- Works perfectly on desktop, tablet, and mobile  
+- Mobile-friendly burger menu included  
+
+---
+
+## 🚀 Live Demo
+
+[https://sergogrikurov.github.io/vue-helper](https://sergogrikurov.github.io/vue-helper)
+
+---
+
+## 📦 Project Setup
 
 ```sh
 npm install
