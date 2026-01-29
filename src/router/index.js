@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouterView } from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
 import Integrations from "@/views/Integrations.vue";
 import Slider from "@/views/Slider.vue";
 import Inputs from "@/views/Inputs.vue";
